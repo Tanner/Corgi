@@ -15,7 +15,7 @@ run-gdb : build-debug
 	gdb ./$(PROGRAM_NAME)
 
 run-valgrind : build-debug
-	valgrind --leak-check=yes --show-reachable=yes --tool=memcheck ./$(PROGRAM_NAME)
+	valgrind --leak-check=yes --show-reachable=no --tool=memcheck ./$(PROGRAM_NAME)
 
 build-release : CFLAGS += $(RELEASE_FLAGS)
 build-release : $(O_FILES) $(H_FILES)
