@@ -1,0 +1,9 @@
+# Sublime Project Files
+*.sublime-project
+*.sublime-workspace
+
+# Object Files
+*.o
+
+# Executables
+*.out
