@@ -17,6 +17,8 @@ MEMORY * memory_init(u32 address_space) {
 	MEMORY *newMemory = malloc(sizeof(MEMORY));
 	assert(newMemory);
 
+	newMemory->address_space = address_space;
+
 	newMemory->memory = malloc(sizeof(u32) * address_space);
 	assert(newMemory->memory);
 
