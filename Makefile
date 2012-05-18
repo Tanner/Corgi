@@ -5,6 +5,9 @@ DEBUG_FLAGS = -g -DDEBUG
 
 PROGRAM_NAME = corgi
 
+run : build-release
+	./$(PROGRAM_NAME)
+
 run-gdb : build-debug
 	gdb ./$(PROGRAM_NAME)
 
