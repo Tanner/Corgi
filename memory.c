@@ -29,6 +29,11 @@ MEMORY * memory_init(u32 address_space) {
 	return newMemory;
 }
 
+/**
+ * Free a MEMORY.
+ * 
+ * @param memory Pointer to a MEMORY
+ */
 void memory_free(MEMORY *memory) {
 	free(memory->memory);
 
