@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "memory.c"
+#include "memory.h"
 
 #define ADDRESS_SPACE 0xFFFF
 
