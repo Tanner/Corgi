@@ -1,11 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "memory.c"
+
+#define ADDRESS_SPACE 0xFFFF
+
 /**
  * Initialize the simulator.
  */
 void sim_init() {
-	
+	MEMORY *memory = memory_init(ADDRESS_SPACE);
+	free(memory);
 }
 
 /**
