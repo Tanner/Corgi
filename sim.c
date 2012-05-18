@@ -5,7 +5,7 @@
 
 #define ADDRESS_SPACE 0xFFFF
 
-MEMORY *memory;
+static MEMORY *memory;
 
 /**
  * Initialize the simulator.
