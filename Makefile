@@ -22,11 +22,11 @@ build-release : $(O_FILES) $(H_FILES)
 	$(CC) $(CFLAGS) $(O_FILES) -o $(PROGRAM_NAME)
 
 build-debug : CFLAGS += $(DEBUG_FLAGS)
-build-debug : $(O_FILES) $(H_FILES)
+build-debug : clean $(O_FILES) $(H_FILES)
 	$(CC) $(CFLAGS) $(O_FILES) -o $(PROGRAM_NAME)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	rm *.o $(PROGRAM_NAME)
+	rm -f *.o $(PROGRAM_NAME)
