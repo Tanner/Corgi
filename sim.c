@@ -15,6 +15,13 @@ void sim_init() {
 }
 
 /**
+ * Free all allocated memory space.
+ */
+void sim_free() {
+	memory_free(memory);
+}
+
+/**
  * Main body of the program.
  *
  * @param argc Number of arguments from the command line.
@@ -23,6 +30,8 @@ void sim_init() {
  */ 
 int main(int argc, char **argv) {
 	sim_init();
+
+	sim_free();
 
 	return EXIT_SUCCESS;
 }

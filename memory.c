@@ -28,3 +28,9 @@ MEMORY * memory_init(u32 address_space) {
 
 	return newMemory;
 }
+
+void memory_free(MEMORY *memory) {
+	free(memory->memory);
+
+	free(memory);
+}

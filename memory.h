@@ -10,5 +10,6 @@ typedef struct _MEMORY {
 } MEMORY;
 
 MEMORY * memory_init(u32 address_space);
+void memory_free(MEMORY *memory);
 
 #endif
