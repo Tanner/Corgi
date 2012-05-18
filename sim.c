@@ -5,12 +5,13 @@
 
 #define ADDRESS_SPACE 0xFFFF
 
+MEMORY *memory;
+
 /**
  * Initialize the simulator.
  */
 void sim_init() {
-	MEMORY *memory = memory_init(ADDRESS_SPACE);
-	free(memory);
+	memory = memory_init(ADDRESS_SPACE);
 }
 
 /**
