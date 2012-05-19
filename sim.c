@@ -11,6 +11,7 @@
 void sim_tristate_buffer(u32 input, bool enable);
 
 void * sim_pc();
+void * sim_ir();
 
 static bool sim_running;
 
@@ -29,6 +30,7 @@ static pthread_mutex_t bus_mutex;
 static bool dr_pc;
 
 static pthread_t pc_thread;
+static pthread_t ir_thread;
 
 /**
  * Initialize the simulator.
@@ -48,6 +50,7 @@ void sim_init() {
 	sim_running = true;
 
 	pthread_create(&pc_thread, NULL, sim_pc, NULL);
+	pthread_create(&ir_thread, NULL, sim_ir, NULL);
 }
 
 /**
@@ -62,6 +65,21 @@ void * sim_pc() {
 		pthread_mutex_unlock(&bus_mutex);
 
 		sim_tristate_buffer(pc_value, dr_pc);
+	}
+
+	return NULL;
+}
+
+/**
+ * Thread simulating the actions of the instruction register.
+ */
+void * sim_ir() {
+	while (sim_running) {
+		pthread_mutex_lock(&bus_mutex);
+
+		memory_update(ir, 0, bus);
+
+		pthread_mutex_unlock(&bus_mutex);
 	}
 
 	return NULL;
