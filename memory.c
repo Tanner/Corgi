@@ -39,3 +39,18 @@ void memory_free(MEMORY *memory) {
 
 	free(memory);
 }
+
+/**
+ * Update a MEMORY given an address and data.
+ * 
+ * @param memory Pointer to a MEMORY
+ * @param address Address to write/read to/from
+ * @param data Data to write if write is enabled in MEMORY
+ */
+u32 memory_update(MEMORY *memory, u32 address, u32 data) {
+	if (memory->write) {
+		memory->memory[address] = data;
+	}
+
+	return memory->memory[address];
+}
