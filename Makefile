@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -pedantic -Wall -Werror
+CFLAGS = -pedantic -Wall -Werror -std=c99
 RELEASE_FLAGS = -02
 DEBUG_FLAGS = -g -DDEBUG
 
