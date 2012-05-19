@@ -50,6 +50,9 @@ void sim_init() {
 	pthread_create(&pc_thread, NULL, sim_pc, NULL);
 }
 
+/**
+ * Thread simulating the actions of the program counter and its tristate buffer.
+ */
 void * sim_pc() {
 	while (sim_running) {
 		pthread_mutex_lock(&bus_mutex);
@@ -64,6 +67,12 @@ void * sim_pc() {
 	return NULL;
 }
 
+/**
+ * Simulator a tristate buffer that is connected to the bus.
+ * 
+ * @param input Input is sent to the bus is enable is true
+ * @param enable Whether or not input is sent to the bus
+ */
 void sim_tristate_buffer(u32 input, bool enable) {
 	if (!enable) {
 		return;
@@ -76,6 +85,10 @@ void sim_tristate_buffer(u32 input, bool enable) {
 	pthread_mutex_unlock(&bus_mutex);
 }
 
+/**
+ * Prepare the simulator to be deallocated. Set the simulator to not be running
+ * and destroy all pthreads.
+ */
 void sim_destroy() {
 	sim_running = false;
 
