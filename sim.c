@@ -14,6 +14,7 @@ void sim_tristate_buffer(u32 input, bool enable);
 void * sim_pc();
 void * sim_ir();
 void * sim_alu();
+void * sim_registers();
 
 static bool sim_running;
 
@@ -30,12 +31,16 @@ static u32 bus;
 static pthread_mutex_t bus_mutex;
 
 static ALU_FUNCTION alu_function;
+static u32 register_number;
+
 static bool dr_pc;
 static bool dr_alu;
+static bool dr_reg;
 
 static pthread_t pc_thread;
 static pthread_t ir_thread;
 static pthread_t alu_thread;
+static pthread_t registers_thread;
 
 /**
  * Initialize the simulator.
@@ -57,6 +62,7 @@ void sim_init() {
 	pthread_create(&pc_thread, NULL, sim_pc, NULL);
 	pthread_create(&ir_thread, NULL, sim_ir, NULL);
 	pthread_create(&alu_thread, NULL, sim_alu, NULL);
+	pthread_create(&registers_thread, NULL, sim_registers, NULL);
 }
 
 /**
@@ -106,6 +112,23 @@ void * sim_alu() {
 		u32 alu_result = alu_update(alu_function, a->memory[0], b->memory[0]);
 
 		sim_tristate_buffer(alu_result, dr_alu);
+	}
+
+	return NULL;
+}
+
+/**
+ * Thread simulating the actions of the register file.
+ */
+void * sim_registers() {
+	while (sim_running) {
+		pthread_mutex_lock(&bus_mutex);
+
+		u32 value = memory_update(registers, register_number, bus);
+
+		pthread_mutex_unlock(&bus_mutex);
+
+		sim_tristate_buffer(value, dr_reg);
 	}
 
 	return NULL;
