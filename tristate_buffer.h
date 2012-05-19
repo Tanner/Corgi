@@ -6,6 +6,6 @@
 
 #define CORGI_TRISTATE_BUFFER_H_
 
-u32 buffer_update(u32 input, bool enable);
+u32 tristate_buffer_update(u32 input, bool enable);
 
 #endif
