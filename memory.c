@@ -26,6 +26,8 @@ MEMORY * memory_init(u32 address_space) {
 		newMemory->memory[i] = 0;
 	}
 
+	newMemory->write = true;
+
 	return newMemory;
 }
 

@@ -16,6 +16,7 @@ void * sim_ir();
 void * sim_alu();
 void * sim_registers();
 void * sim_memory();
+void * sim_z();
 
 static bool sim_running;
 
@@ -24,6 +25,7 @@ static MEMORY *registers;
 static MEMORY *pc;
 static MEMORY *ir;
 static MEMORY *mar;
+static MEMORY *z;
 
 static MEMORY *a;
 static MEMORY *b;
@@ -44,6 +46,7 @@ static pthread_t ir_thread;
 static pthread_t alu_thread;
 static pthread_t registers_thread;
 static pthread_t memory_thread;
+static pthread_t z_thread;
 
 /**
  * Initialize the simulator.
@@ -54,6 +57,7 @@ void sim_init() {
 	pc = memory_init(1);
 	ir = memory_init(1);
 	mar = memory_init(1);
+	z = memory_init(1);
 
 	a = memory_init(1);
 	b = memory_init(1);
@@ -67,6 +71,7 @@ void sim_init() {
 	pthread_create(&alu_thread, NULL, sim_alu, NULL);
 	pthread_create(&registers_thread, NULL, sim_registers, NULL);
 	pthread_create(&memory_thread, NULL, sim_memory, NULL);
+	pthread_create(&z_thread, NULL, sim_z, NULL);
 }
 
 /**
@@ -158,6 +163,23 @@ void * sim_memory() {
 }
 
 /**
+ * Thread simulating the actions of the Z register.
+ */
+void * sim_z() {
+	while (sim_running) {
+		pthread_mutex_lock(&bus_mutex);
+
+		bool is_zero = bus == 0 ? false : true;
+
+		memory_update(z, 0, is_zero);
+
+		pthread_mutex_unlock(&bus_mutex);
+	}
+
+	return NULL;
+}
+
+/**
  * Simulator a tristate buffer that is connected to the bus.
  * 
  * @param input Input is sent to the bus is enable is true
@@ -194,6 +216,7 @@ void sim_free() {
 	memory_free(pc);
 	memory_free(ir);
 	memory_free(mar);
+	memory_free(z);
 
 	memory_free(a);
 	memory_free(b);
