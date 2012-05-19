@@ -91,6 +91,9 @@ void * sim_ir() {
 	return NULL;
 }
 
+/**
+ * Thread simulating the actions of the ALU and both a/b temporary registers.
+ */
 void * sim_alu() {
 	while (sim_running) {
 		pthread_mutex_lock(&bus_mutex);
