@@ -3,6 +3,7 @@
 #include <pthread.h>
 
 #include "memory.h"
+#include "alu.h"
 
 #define ADDRESS_SPACE 0xFFFF
 
@@ -12,6 +13,7 @@ void sim_tristate_buffer(u32 input, bool enable);
 
 void * sim_pc();
 void * sim_ir();
+void * sim_alu();
 
 static bool sim_running;
 
@@ -27,10 +29,13 @@ static MEMORY *b;
 static u32 bus;
 static pthread_mutex_t bus_mutex;
 
+static ALU_FUNCTION alu_function;
 static bool dr_pc;
+static bool dr_alu;
 
 static pthread_t pc_thread;
 static pthread_t ir_thread;
+static pthread_t alu_thread;
 
 /**
  * Initialize the simulator.
@@ -51,6 +56,7 @@ void sim_init() {
 
 	pthread_create(&pc_thread, NULL, sim_pc, NULL);
 	pthread_create(&ir_thread, NULL, sim_ir, NULL);
+	pthread_create(&alu_thread, NULL, sim_alu, NULL);
 }
 
 /**
@@ -80,6 +86,23 @@ void * sim_ir() {
 		memory_update(ir, 0, bus);
 
 		pthread_mutex_unlock(&bus_mutex);
+	}
+
+	return NULL;
+}
+
+void * sim_alu() {
+	while (sim_running) {
+		pthread_mutex_lock(&bus_mutex);
+
+		memory_update(a, 0, bus);
+		memory_update(b, 0, bus);
+
+		pthread_mutex_unlock(&bus_mutex);
+
+		u32 alu_result = alu_update(alu_function, a->memory[0], b->memory[0]);
+
+		sim_tristate_buffer(alu_result, dr_alu);
 	}
 
 	return NULL;
