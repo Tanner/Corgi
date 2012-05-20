@@ -2,14 +2,13 @@
 #include <stdlib.h>
 #include <pthread.h>
 
+#include "sim.h"
 #include "memory.h"
 #include "alu.h"
 
 #define ADDRESS_SPACE 0xFFFF
 
 #define REGISTERS_COUNT 8
-
-void sim_tristate_buffer(u32 input, bool enable);
 
 void * sim_pc();
 void * sim_ir();
