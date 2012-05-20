@@ -205,6 +205,13 @@ void sim_destroy() {
 	sim_running = false;
 
 	pthread_mutex_destroy(&bus_mutex);
+
+	pthread_join(pc_thread, NULL);
+	pthread_join(ir_thread, NULL);
+	pthread_join(alu_thread, NULL);
+	pthread_join(registers_thread, NULL);
+	pthread_join(memory_thread, NULL);
+	pthread_join(z_thread, NULL);
 }
 
 /**
