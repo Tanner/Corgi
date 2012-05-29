@@ -3,6 +3,7 @@
 #include <pthread.h>
 
 #include "sim.h"
+#include "microcontroller.h"
 #include "memory.h"
 #include "alu.h"
 #include "debug.h"
@@ -19,6 +20,8 @@ void * sim_memory();
 void * sim_z();
 
 static bool sim_running;
+
+static MICROCONTROLLER *microcontroller;
 
 static MEMORY *memory;
 static MEMORY *registers;
@@ -53,6 +56,10 @@ static pthread_t z_thread;
  * Initialize the simulator.
  */
 void sim_init() {
+	DLOG("Creating microcontroller");
+
+	microcontroller = microcontroller_init();
+
 	DLOG("Creating memory components");
 
 	memory = memory_init(ADDRESS_SPACE);
@@ -233,6 +240,8 @@ void sim_destroy() {
  * Free all allocated memory space.
  */
 void sim_free() {
+	microcontroller_free(microcontroller);
+
 	memory_free(memory);
 	memory_free(registers);
 	memory_free(pc);
