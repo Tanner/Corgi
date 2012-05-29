@@ -11,6 +11,7 @@ typedef struct _MICROCONTROLLER {
 	MEMORY *main;
 	MEMORY *sequencer;
 	MEMORY *onZ;
+	MEMORY *state;
 } MICROCONTROLLER;
 
 MICROCONTROLLER * microcontroller_init();

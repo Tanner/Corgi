@@ -8,6 +8,8 @@
 #define SEQUENCER_ROM_ADDRESS_SPACE 8 /* 2^3 */
 #define ON_Z_ROM_ADDRESS_SPACE 2
 
+#define STATE_REGISTER_ADDRESS_SPACE 1
+
 /**
  * Allocate MICRO_CONTROLLER and allocate space for its members.
  *
@@ -20,6 +22,8 @@ MICROCONTROLLER * microcontroller_init() {
 	newMicrocontroller->main = memory_init(MAIN_ROM_ADDRESS_SPACE);
 	newMicrocontroller->sequencer = memory_init(SEQUENCER_ROM_ADDRESS_SPACE);
 	newMicrocontroller->onZ = memory_init(ON_Z_ROM_ADDRESS_SPACE);
+
+	newMicrocontroller->state = memory_init(STATE_REGISTER_ADDRESS_SPACE);
 
 	return newMicrocontroller;
 }
@@ -34,5 +38,11 @@ void microcontroller_free(MICROCONTROLLER *microcontroller) {
 	free(microcontroller->sequencer);
 	free(microcontroller->onZ);
 
+	free(microcontroller->state);
+
 	free(microcontroller);
+}
+
+void microcontroller_update(MICROCONTROLLER *microcontroller, u8 opcode, bool z) {
+
 }
