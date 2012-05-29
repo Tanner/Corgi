@@ -44,7 +44,7 @@ void microcontroller_free(MICROCONTROLLER *microcontroller) {
 }
 
 u32 microcontroller_update(MICROCONTROLLER *microcontroller, u8 opcode, bool z) {
-	stateContents = memory_read(microcontroller->main, memory_read(microcontroller->state, 0));
+	u32 stateContents = memory_read(microcontroller->main, memory_read(microcontroller->state, 0));
 
 	return stateContents;
 }
