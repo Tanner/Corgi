@@ -5,8 +5,8 @@ DEBUG_FLAGS = -g -DDEBUG
 
 PROGRAM_NAME = corgi
 
-O_FILES = sim.o memory.o alu.o
-H_FILES = sim.h memory.h types.h alu.h debug.h
+O_FILES = sim.o memory.o alu.o microcontroller.o
+H_FILES = sim.h memory.h types.h alu.h debug.h microcontroller.h
 
 run : build-release
 	./$(PROGRAM_NAME)
