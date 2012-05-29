@@ -62,15 +62,15 @@ void sim_init() {
 
 	DLOG("Creating memory components");
 
-	memory = memory_init(ADDRESS_SPACE);
-	registers = memory_init(REGISTERS_COUNT);
-	pc = memory_init(1);
-	ir = memory_init(1);
-	mar = memory_init(1);
-	z = memory_init(1);
+	memory = memory_init(ADDRESS_SPACE, false);
+	registers = memory_init(REGISTERS_COUNT, false);
+	pc = memory_init(1, false);
+	ir = memory_init(1, false);
+	mar = memory_init(1, false);
+	z = memory_init(1, false);
 
-	a = memory_init(1);
-	b = memory_init(1);
+	a = memory_init(1, false);
+	b = memory_init(1, false);
 
 	DLOG("Initializing bus mutex")
 

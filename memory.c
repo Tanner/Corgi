@@ -11,7 +11,7 @@
  * @param address_space Address space for the memory
  * @return MEMORY pointer
  */
-MEMORY * memory_init(u32 address_space) {
+MEMORY * memory_init(u32 address_space, bool read_only) {
 	int i;
 
 	MEMORY *newMemory = malloc(sizeof(MEMORY));
@@ -26,7 +26,7 @@ MEMORY * memory_init(u32 address_space) {
 		newMemory->memory[i] = 0;
 	}
 
-	newMemory->write = true;
+	newMemory->write = !read_only;
 
 	return newMemory;
 }

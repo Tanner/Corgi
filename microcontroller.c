@@ -19,11 +19,11 @@ MICROCONTROLLER * microcontroller_init() {
 	MICROCONTROLLER *newMicrocontroller = malloc(sizeof(MICROCONTROLLER));
 	assert(newMicrocontroller);
 
-	newMicrocontroller->main = memory_init(MAIN_ROM_ADDRESS_SPACE);
-	newMicrocontroller->sequencer = memory_init(SEQUENCER_ROM_ADDRESS_SPACE);
-	newMicrocontroller->onZ = memory_init(ON_Z_ROM_ADDRESS_SPACE);
+	newMicrocontroller->main = memory_init(MAIN_ROM_ADDRESS_SPACE, true);
+	newMicrocontroller->sequencer = memory_init(SEQUENCER_ROM_ADDRESS_SPACE, true);
+	newMicrocontroller->onZ = memory_init(ON_Z_ROM_ADDRESS_SPACE, true);
 
-	newMicrocontroller->state = memory_init(STATE_REGISTER_ADDRESS_SPACE);
+	newMicrocontroller->state = memory_init(STATE_REGISTER_ADDRESS_SPACE, false);
 
 	return newMicrocontroller;
 }

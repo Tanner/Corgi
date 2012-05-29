@@ -12,7 +12,7 @@ typedef struct _MEMORY {
 	bool write;
 } MEMORY;
 
-MEMORY * memory_init(u32 address_space);
+MEMORY * memory_init(u32 address_space, bool read_only);
 void memory_free(MEMORY *memory);
 u32 memory_update(MEMORY *memory, u32 address, u32 data);
 
