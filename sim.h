@@ -12,6 +12,8 @@
 #define BITS_4_to_0(A) ((A) & 0x1F)
 #define BITS_3_to_0(A) ((A) & 0xF)
 
+#define SEXT5(A) ((((A) >> 0x4) & 0x1) ? 0xFFE | (A) : (A))
+
 void sim_tristate_buffer(u32 input, bool enable);
 
 #endif

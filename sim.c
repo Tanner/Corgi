@@ -109,7 +109,7 @@ void * sim_ir() {
 
 		pthread_mutex_unlock(&bus_mutex);
 
-		sim_tristate_buffer(BITS_4_to_0(ir_value), dr_off);
+		sim_tristate_buffer(SEXT5(BITS_4_to_0(ir_value)), dr_off);
 	}
 
 	return NULL;
