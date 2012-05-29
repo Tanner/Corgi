@@ -5,6 +5,7 @@
 #include "sim.h"
 #include "memory.h"
 #include "alu.h"
+#include "debug.h"
 
 #define ADDRESS_SPACE 0xFFFF
 
@@ -51,6 +52,8 @@ static pthread_t z_thread;
  * Initialize the simulator.
  */
 void sim_init() {
+	DLOG("Creating memory components");
+
 	memory = memory_init(ADDRESS_SPACE);
 	registers = memory_init(REGISTERS_COUNT);
 	pc = memory_init(1);
@@ -61,9 +64,13 @@ void sim_init() {
 	a = memory_init(1);
 	b = memory_init(1);
 
+	DLOG("Initializing bus mutex")
+
 	pthread_mutex_init(&bus_mutex, NULL);
 
 	sim_running = true;
+
+	DLOG("Creating all component threads");
 
 	pthread_create(&pc_thread, NULL, sim_pc, NULL);
 	pthread_create(&ir_thread, NULL, sim_ir, NULL);
@@ -203,7 +210,11 @@ void sim_tristate_buffer(u32 input, bool enable) {
 void sim_destroy() {
 	sim_running = false;
 
+	DLOG("Destroying bus mutex");
+
 	pthread_mutex_destroy(&bus_mutex);
+
+	DLOG("Waiting for all component threads to halt");
 
 	pthread_join(pc_thread, NULL);
 	pthread_join(ir_thread, NULL);
@@ -211,6 +222,8 @@ void sim_destroy() {
 	pthread_join(registers_thread, NULL);
 	pthread_join(memory_thread, NULL);
 	pthread_join(z_thread, NULL);
+
+	DLOG("All component threads have halted")
 }
 
 /**
@@ -226,6 +239,8 @@ void sim_free() {
 
 	memory_free(a);
 	memory_free(b);
+
+	DLOG("All memory freed");
 }
 
 /**

@@ -6,9 +6,12 @@ DEBUG_FLAGS = -g -DDEBUG
 PROGRAM_NAME = corgi
 
 O_FILES = sim.o memory.o alu.o
-H_FILES = sim.h memory.h types.h alu.h
+H_FILES = sim.h memory.h types.h alu.h debug.h
 
 run : build-release
+	./$(PROGRAM_NAME)
+
+run-debug: build-debug
 	./$(PROGRAM_NAME)
 
 run-gdb : build-debug
