@@ -40,6 +40,7 @@ static bool dr_pc;
 static bool dr_alu;
 static bool dr_reg;
 static bool dr_mem;
+static bool dr_off;
 
 static pthread_t pc_thread;
 static pthread_t ir_thread;
@@ -104,9 +105,11 @@ void * sim_ir() {
 	while (sim_running) {
 		pthread_mutex_lock(&bus_mutex);
 
-		memory_update(ir, 0, bus);
+		u32 ir_value = memory_update(ir, 0, bus);
 
 		pthread_mutex_unlock(&bus_mutex);
+
+		sim_tristate_buffer(BITS_4_to_0(ir_value), dr_off);
 	}
 
 	return NULL;
