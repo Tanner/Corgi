@@ -16,6 +16,6 @@ typedef struct _MICROCONTROLLER {
 
 MICROCONTROLLER * microcontroller_init();
 void microcontroller_free(MICROCONTROLLER *microcontroller);
-void microcontroller_update(MICROCONTROLLER *microcontroller, u8 opcode, bool z);
+u32 microcontroller_update(MICROCONTROLLER *microcontroller, u8 opcode, bool z);
 
 #endif
