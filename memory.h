@@ -15,5 +15,6 @@ typedef struct _MEMORY {
 MEMORY * memory_init(u32 address_space, bool read_only);
 void memory_free(MEMORY *memory);
 u32 memory_update(MEMORY *memory, u32 address, u32 data);
+u32 memory_read(MEMORY *memory, u32 address);
 
 #endif

@@ -56,3 +56,15 @@ u32 memory_update(MEMORY *memory, u32 address, u32 data) {
 
 	return memory->memory[address];
 }
+
+/**
+ * Read a MEMORY at a given address.
+ * 
+ * @param memory Pointer to a MEMORY
+ * @param address Address to read from
+ * 
+ * @return Value at the address
+ */
+u32 memory_read(MEMORY *memory, u32 address) {
+	return memory->memory[address];
+}
