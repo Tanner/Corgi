@@ -13,7 +13,7 @@
 #define MICROCONTROLLER_NEXT_STATE(CONTENTS) ((CONTENTS) & 0x1F)
 
 /**
- * The following content is located at the bits specified in the main rom.
+ * Content is located at the bits specified in the main rom.
  */
 #define MICROCONTROLLER_DR_REG 6
 #define MICROCONTROLLER_DR_MEM 7
