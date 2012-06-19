@@ -43,6 +43,14 @@
 #define MICROCONTROLLER_RZ 2
 
 /**
+ * Select ALU field bit locations.
+ */
+#define MICROCONTROLLER_ADD 0
+#define MICROCONTROLLER_NAND 1
+#define MICROCONTROLLER_SUB 2
+#define MICROCONTROLLER_PLUS_ONE 3
+
+/**
  * Retrievies the bit in the first position in a bitstring after shifting an
  * amount. 
  */
