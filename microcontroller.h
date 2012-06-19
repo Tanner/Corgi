@@ -36,6 +36,13 @@
 #define MICROCONTROLLER_CHK_Z 24
 
 /**
+ * Select register field bit locations.
+ */
+#define MICROCONTROLLER_RX 0
+#define MICROCONTROLLER_RY 1
+#define MICROCONTROLLER_RZ 2
+
+/**
  * Retrievies the bit in the first position in a bitstring after shifting an
  * amount. 
  */
